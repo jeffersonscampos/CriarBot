@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "86dc9121-841e-4276-a96b-d0466ef2517d",
+		"name": "ChatBots",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cadastro_INSERT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 2,\r\n    \"input\": \"quais as novidades\",\r\n    \"output\": \"IA e PLN.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/chatbot/insert",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_UPDATE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"code_current\": 101005159710462,\r\n        \"activate\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/chatbot/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_DELETE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 1,\r\n    \"input\": \"você é um humano?\",\r\n    \"output\": \"Não, eu sou um chatbot.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/chatbot/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_FIND_By_Pergunta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"input\": \"Quem é você?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/chatbot/find",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_FIND_By_CodeUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/chatbot/find",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Question",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/chatbot/question?code_user=1&input=você é um humano?",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"question"
+					],
+					"query": [
+						{
+							"key": "code_user",
+							"value": "1"
+						},
+						{
+							"key": "input",
+							"value": "você é um humano?"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Question_Com_Relation_Fluxo_Sim",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/chatbot/question?code_user=1&input=sim entendi&code_before=101005005623650",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"question"
+					],
+					"query": [
+						{
+							"key": "code_user",
+							"value": "1"
+						},
+						{
+							"key": "input",
+							"value": "sim entendi"
+						},
+						{
+							"key": "code_before",
+							"value": "101005005623650"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Question_Com_Relation_Fluxo_Nao",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/chatbot/question?code_user=1&input=não entendi?&code_before=101005005623650",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"question"
+					],
+					"query": [
+						{
+							"key": "code_user",
+							"value": "1"
+						},
+						{
+							"key": "input",
+							"value": "não entendi?"
+						},
+						{
+							"key": "code_before",
+							"value": "101005005623650"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

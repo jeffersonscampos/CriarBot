@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "94c8967d-1929-4ac4-9fc2-5bbe3a03c855",
+		"name": "USUARIOS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cadastro_INSERT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 2,\r\n    \"full_name\": \"Teste\",\r\n    \"user_name\": \"tstr\",\r\n    \"password\": \"123456\",\r\n    \"email\": \"tester@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/insert",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_UPDATE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": {\r\n        \"$oid\": \"5fad9940dcce22555fe77bb4\"\r\n    },\r\n    \"code_user\": 1,\r\n    \"activate\": true,\r\n    \"full_name\": \"Jefferson de Souza Campos\",\r\n    \"user_name\": \"jeffersonsc\",\r\n    \"email\": \"jefferson.s.campos@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_DELETE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 1,\r\n    \"input\": \"você é um humano?\",\r\n    \"output\": \"Não, eu sou um chatbot.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_DELETE _ALL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 2    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/delete/all",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"delete",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_FIND_By_Pergunta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"input\": \"O que é um chatbot?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/find",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_FIND_By_CodeUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/find",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_Activate_By_CodeUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/activate/true",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"activate",
+						"true"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro_Inactivate_By_CodeUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_user\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/activate/false",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"activate",
+						"false"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Question",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/question?code_user=1&input=você é um humano?",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"question"
+					],
+					"query": [
+						{
+							"key": "code_user",
+							"value": "1"
+						},
+						{
+							"key": "input",
+							"value": "você é um humano?"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Question_Com_Relation_Fluxo_Sim",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/question?code_user=1&input=sim entendi?&code_before=101005005623650",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"question"
+					],
+					"query": [
+						{
+							"key": "code_user",
+							"value": "1"
+						},
+						{
+							"key": "input",
+							"value": "sim entendi?"
+						},
+						{
+							"key": "code_before",
+							"value": "101005005623650"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Question_Com_Relation_Fluxo_Nao",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/question?code_user=1&input=não entendi?&code_before=101005005623650",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"question"
+					],
+					"query": [
+						{
+							"key": "code_user",
+							"value": "1"
+						},
+						{
+							"key": "input",
+							"value": "não entendi?"
+						},
+						{
+							"key": "code_before",
+							"value": "101005005623650"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

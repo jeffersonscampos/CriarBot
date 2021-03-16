@@ -1,0 +1,282 @@
+﻿<script type="text/javascript">
+	const admin_password = prompt('Digite a sua senha de administrador');
+	entrar('admin', admin_password);
+
+	function entrar(user_name='', password='') {
+		const http = new XMLHttpRequest();
+		http.open('POST', '/admin/search', false);
+		http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		http.onreadystatechange = function() {
+			if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+				let objJSON = JSON.parse(http.responseText);
+				if((objJSON.user_name!=user_name)||(objJSON.password!=password)) {
+					window.location.href = '/login';
+				}else {
+					listar();
+				}
+			}
+		}
+		http.send(`user_name=${user_name}&password=${password}`);
+	}
+
+	function listar() {
+		const http = new XMLHttpRequest();
+		http.open('POST', '/user/find', true);
+		http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		http.onreadystatechange = function() {
+			if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+				let objJSON = JSON.parse(http.responseText);
+				if(objJSON.length>0) {
+					let strLinhas = '';
+					for(let i=0; i<objJSON.length; i++) {
+						strLinhas +=
+						`
+							<tr>
+								<td width="400px">${objJSON[i].full_name}</td>
+								<td align="center">
+									<button class="btn btn-info"
+									onclick="selecionar(${objJSON[i].code_user})">
+										selecionar
+									</button>
+								</td>
+							</tr>
+						`;
+					}
+					linhas.innerHTML = strLinhas;
+				}
+			}
+		}
+		http.send();  			
+	}
+
+	function selecionar(_code_user=-1) {
+		const http = new XMLHttpRequest();
+		http.open('POST', '/user/find', true);
+		http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		http.onreadystatechange = function() {
+			if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+				let objJSON = JSON.parse(http.responseText);
+				if(objJSON.length>0) {
+					const code_user = document.getElementById('code_user');
+					const activateF = document.getElementById('activateF');
+					const activateT = document.getElementById('activateT');
+					const full_name = document.getElementById('full_name');
+					const user_name = document.getElementById('user_name');
+					const email = document.getElementById('email');
+					const password = document.getElementById('password');
+
+					code_user.value = objJSON[0].code_user;
+					const activate = Number(objJSON[0].activate);
+					if(activate>0) activateT.checked = true;
+					else activateF.checked = true;
+					full_name.value = objJSON[0].full_name;
+					user_name.value = objJSON[0].user_name;
+					email.value = objJSON[0].email;
+					password.value = objJSON[0].password;
+
+					alertFalse();
+				}
+			}
+		}
+		http.send(`code_user=${_code_user}`);
+	}
+
+	function novo() {
+		document.getElementById('code_user').value = 0;
+		document.getElementById('activateF').checked = false;
+		document.getElementById('activateT').checked = true;
+		document.getElementById('full_name').value = '';
+		document.getElementById('user_name').value = '';
+		document.getElementById('email').value = '';
+		document.getElementById('password').value = '';
+		document.getElementById('full_name').focus();
+	}
+
+	function salvar() {
+		const code_user = Number(document.getElementById('code_user').value);
+		const activateT = document.getElementById('activateT');
+		const full_name = document.getElementById('full_name').value.toString().trim();
+		const user_name = document.getElementById('user_name').value.toString().trim();
+		const email = document.getElementById('email').value.toString().trim();
+		const password = document.getElementById('password').value.toString().trim();
+
+		let params = '';
+		if(code_user>0) params += `code_user=${code_user}&`;
+		if(activateT.checked) params += `activate=1&`; else params += `activate=0&`;
+		if(full_name.length>0) params += `full_name=${full_name}&`;
+		if(user_name.length>0) params += `user_name=${user_name}&`;
+		if(email.length>0) params += `email=${email}&`;
+		if(password.length>0) params += `password=${password}&`;
+		params += '#';
+		params = params.replace('&#', '');
+
+		const http = new XMLHttpRequest();
+		if(code_user<=0)
+			http.open('POST', '/user/insert', true);
+		else
+			http.open('POST', '/user/update', true);
+
+		http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		http.onreadystatechange = function() {
+			if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+				let objJSON = JSON.parse(http.responseText);
+				if(Number(objJSON.result.n)>0) {
+					listar();
+					alertTrue();
+				}
+			}
+		}
+		http.send(params);	   			
+	}
+
+	function deletar() {
+		const code_user = Number(document.getElementById('code_user').value);
+		const activateT = document.getElementById('activateT');
+		const full_name = document.getElementById('full_name').value.toString().trim();
+		const user_name = document.getElementById('user_name').value.toString().trim();
+		const email = document.getElementById('email').value.toString().trim();
+		const password = document.getElementById('password').value.toString().trim();
+
+		let params = '';
+		if(code_user>0) params += `code_user=${code_user}&`;
+		if(activateT.checked) params += `activate=1&`; else params += `activate=0&`;
+		if(full_name.length>0) params += `full_name=${full_name}&`;
+		if(user_name.length>0) params += `user_name=${user_name}&`;
+		if(email.length>0) params += `email=${email}&`;
+		if(password.length>0) params += `password=${password}&`;
+		params += '#';
+		params = params.replace('&#', '');
+
+		const http = new XMLHttpRequest();
+		http.open('POST', '/user/delete', true);
+
+		http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		http.onreadystatechange = function() {
+			if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+				let objJSON = JSON.parse(http.responseText);
+				if(Number(objJSON.result.n)>0) {
+					listar();
+					novo();
+				}
+			}
+		}
+		http.send(params);	 	   			
+	}
+
+	function alertFalse() {
+		const Alert = document.getElementById('alert');
+		Alert.style.display = 'none';   			
+	}
+
+	function alertTrue() {
+		const Alert = document.getElementById('alert');
+		Alert.style.display = 'block';
+		novo(); 			
+	}
+</script>
+<!doctype html>
+<html>
+		<head>
+	   <link rel="stylesheet" href="css/estilos.css" type="text/css">
+	   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	   <script src="js/jquery.min.js"></script>  	   
+	   <script src="js/popper.min.js"></script>
+	   <script src="js/bootstrap.min.js"></script>
+	   
+	   <meta charset="utf-8">
+	   <meta http-equiv='cache-control' content='no-cache'>
+	   <meta http-equiv='expires' content='0'>
+	   <meta http-equiv='pragma' content='no-cache'>
+	   
+		<link rel="icon" href="https://criarbot.com.br/wp-content/uploads/2020/11/favicon.png" sizes="32x32" />
+		<link rel="icon" href="https://criarbot.com.br/wp-content/uploads/2020/11/favicon.png" sizes="192x192" />
+		<link rel="apple-touch-icon" href="https://criarbot.com.br/wp-content/uploads/2020/11/favicon.png" />
+		<meta name="msapplication-TileImage" content="https://criarbot.com.br/wp-content/uploads/2020/11/favicon.png" />
+		
+		<title>Admin - Criar Bot</title>
+	</head>
+	<body>
+	   <nav class="navbar navbar-expand-sm bg-info">
+	     <ul class="navbar-nav">
+	       <li class="nav-item">
+	         <a class="nav-link text-white" href="#">
+	         	Usuários
+	     	 </a>
+	       </li>
+	       <li class="nav-item">
+	       	 <a class="nav-link text-white" href="/login">
+	         	Sair
+	     	 </a>
+	       </li>
+	     </ul>
+	   </nav>
+	   <br>
+	   <div class="container">
+	     	<h2 align="center">Chatbot com JavaScript</h2>
+	     	<br>
+	     	<table width="100%" cellpadding="20px">
+	     		<tr>
+	     			<td>
+					    <div align="center" style="height: 300px;">
+					        <input type="hidden" id="code_user">
+					    	<label class="radio-inline">
+					        	<input type="radio" value="false" onchange="alertFalse()" name="activate" id="activateF">
+					        	Desativado
+					    	</label>
+					        <label class="radio-inline">
+					        	<input type="radio" value="true" onchange="alertFalse()" name="activate" id="activateT">
+					        	Ativado
+					    	</label>
+						    <input type="text" class="form-control" id="full_name" placeholder="Nome completo" onchange="alertFalse()"><br>
+						    <input type="text" class="form-control" id="user_name" placeholder="Nome de usuário"onchange="alertFalse()" ><br>
+						    <input type="email" class="form-control" id="email" placeholder="Email"onchange="alertFalse()" ><br>
+						    <input type="text" class="form-control" id="password" placeholder="Senha"onchange="alertFalse()" ><br>
+						    <button class="btn btn-lg btn-info" onclick="novo()">NOVO</button>
+						    <button class="btn btn-lg btn-info" onclick="salvar()">SALVAR</button>
+						    <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#dlDeletar">DELETAR</button>
+					    </div>	     				
+	     			</td>
+	     			<td>
+	     				<div style="overflow-y:scroll; height: 300px;">
+							<table class="table table-striped" width="100%">
+							    <tbody id="linhas">
+
+							    </tbody>
+							</table>   
+						</div>  				
+	     			</td>
+	     		</tr>
+			 </table>
+			 <br>
+			<div class="alert alert-success alert-dismissible" id="alert" style="display: none;">
+			   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			   <strong>SALVO!</strong> Registro SALVO com SUCESSO.
+			</div>
+	   </div>
+
+	   <div id="dlDeletar" class="modal" role="dialog">
+		  <div class="modal-dialog">
+
+		    <div class="modal-content">
+		      <div class="modal-header">
+		      	<h4 class="modal-title">DELEÇÃO</h4>
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Confirma Deleção?</p>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deletar()">DELETAR</button>
+		      </div>
+		    </div>
+
+		  </div>
+	   </div>
+	</body>
+</html>

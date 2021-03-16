@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "3910dc18-fc9f-4402-8605-320359d6d452",
+		"name": "CAPTURA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getDocumentos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/chatbot/question?code_user=1&input=O meu nome é Josefino da Silva Moreira, tenho 34 anos, meu email é jefferson.s.campos@gmail.com, meu celular é 41988594226, meu telefone é 4131260094, meu CEP é 83705-100, número 850, meu CPF é 46395485083 e meu CNPJ é 31835728000167",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"question"
+					],
+					"query": [
+						{
+							"key": "code_user",
+							"value": "1"
+						},
+						{
+							"key": "input",
+							"value": "O meu nome é Josefino da Silva Moreira, tenho 34 anos, meu email é jefferson.s.campos@gmail.com, meu celular é 41988594226, meu telefone é 4131260094, meu CEP é 83705-100, número 850, meu CPF é 46395485083 e meu CNPJ é 31835728000167"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDocumentos _captura_Nome",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/chatbot/question?code_user=1&input=Josefino",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"chatbot",
+						"question"
+					],
+					"query": [
+						{
+							"key": "code_user",
+							"value": "1"
+						},
+						{
+							"key": "input",
+							"value": "Josefino"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
