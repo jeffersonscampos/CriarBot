@@ -1,7 +1,4 @@
 {
-  "engines": {
-    "node": "14.15.0"
-  },
   "name": "TCC_ChatBots",
   "version": "1.0.0",
   "description": "",
@@ -18,5 +15,8 @@
     "express": "^4.17.1",
     "mongodb": "^3.6.2",
     "popper.js": "^1.16.1"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
