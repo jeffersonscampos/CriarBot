@@ -1,33 +1,57 @@
-const express = require('express');
-const app = express();
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
-const bodyParser = require('body-parser');
+// const express = require('express')
+const path = require('path')
+//const PORT = process.env.PORT || 5000
 
-let db = null;
-const url = 'mongodb://localhost:27017';
-const dbName = 'chatbotsdb';
+//express()
+//  .use(express.static(path.join(__dirname, 'public')))
+//  .set('views', path.join(__dirname, 'views'))
+//  .set('view engine', 'ejs')
+//  .get('/', (req, res) => res.render('pages/index'))
+//  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-const jsonParser = bodyParser.json();
-const urlencodedParser  = bodyParser.urlencoded({extented: false});
+  
+  const express = require('express');
+  const app = express();
+  //const MongoClient = require('mongodb').MongoClient;
+  var MongoClient = require('mongoose');
+  const assert = require('assert');
+  const bodyParser = require('body-parser');
+  
+  let db = null;
+  const url = process.env.MONGODB_URL || 'mongodb://localhost:27017';
+  const dbName = 'chatbotsdb';
+  
+  const jsonParser = bodyParser.json();
+  const urlencodedParser  = bodyParser.urlencoded({extented: false});
 
-app.use(jsonParser);
-app.use(urlencodedParser );
-app.use('/css', express.static(__dirname + '/css'));
-app.use('/css', express.static(__dirname + '/css/bootstrap-4.5.3-dist'));
-app.use('/js', express.static(__dirname + '/js'));
-app.use('/js', express.static(__dirname + '/js/jquery-3.5.1'));
-app.use('/js', express.static(__dirname + '/js/bootstrap-4.5.3-dist'));
+  app.use(jsonParser);
+  app.use(urlencodedParser );
+  app.use('/css', express.static(__dirname + '/css'));
+  app.use('/css', express.static(__dirname + '/css/bootstrap-4.5.3-dist'));
+  app.use('/js', express.static(__dirname + '/js'));
+  app.use('/js', express.static(__dirname + '/js/jquery-3.5.1'));
+  app.use('/js', express.static(__dirname + '/js/bootstrap-4.5.3-dist'));
+  
+  MongoClient.connect(url, {useUnifiedTopology: true, useNewUrlParser: true}, function(err, client){
+      assert.equal(null, err);
+      console.log('banco de dados conectado com sucesso!');
+  
+      db = client.db(dbName);
+  });
+  
+  //app.listen(3000);
+  const PORTA = process.env.PORT || 3000;
+  const PORT  = process.env.PORT || 3000;
+  
+  app.use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  
+  app.listen(PORTA, () => console.log(`Listening on ${ PORT }`));
 
-MongoClient.connect(url, {useNewUrlParser: true}, function(err, client){
-    assert.equal(null, err);
-    console.log('banco de dados conectado com sucesso!');
-
-    db = client.db(dbName);
-});
-
-app.listen(3000);
-console.log('servidor rodando em localhost:3000');
+  
+  console.log('servidor rodando em localhost:3000');
 
 //INTERFACE #########################################################################
 app.get('/', urlencodedParser , function(req, res) {
@@ -541,8 +565,14 @@ const nlp = function(question='', sentencas=[], code_user = -1){
                 question = question.toString().trim();
                 let input = sentencas[i].input.toString().trim();
                 if(input.length <= 0) input = sentencas[i].output.toString().trim();
+                
+                // Tipos de Normalização NFD e NFKD:
+                // --> https://www.ramosdainformatica.com.br/programacao/javascript/entenda-o-que-e-normalizacao-no-javascript/
+                // --> https://qastack.com.br/programming/7931204/what-is-normalized-utf-8-all-about
+                // --> https://www.otaviomiranda.com.br/2020/normalizacao-unicode-em-python/
                 question = question.normalize('NFD').replace('/[\u0300-\u036f]/g', '').toLowerCase();
                 input = input.normalize('NFD').replace('/[\u0300-\u036f]/g', '').toLowerCase();
+
                 question = question.replace('-', ' ');
                 question = question.replace('.', ' ');
                 question = question.replace(',', ' ');
