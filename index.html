@@ -331,7 +331,7 @@
 	   			incorporacao.innerText =
 	   			`
 		         <a href="#"
-		         onclick="window.open('http://localhost:3000/chatbot?code_user=[code_user]', 
+		         onclick="window.open('[CHATBOT_API_URL]/chatbot?code_user=[code_user]', 
 		         					  '',
 		         					  'width=410,height=450')">
 		         	Chatbot
@@ -419,7 +419,7 @@
 		      <div class="modal-body">
 		      	Link de Integração
 		      	<input type="text" id="integracao" class="form-control"
-				  value="http://localhost:3000/chatbot/question?code_user=[code_user]&code_before=[Código da resposta anterior]&input=[Pergunta a ser feita]">
+				  value="[CHATBOT_API_URL]/chatbot/question?code_user=[code_user]&code_before=[Código da resposta anterior]&input=[Pergunta a ser feita]">
 		      	<br>
 		      	Código de Incorporação
 		      	<div id="incorporacao">	      		

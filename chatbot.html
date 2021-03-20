@@ -148,7 +148,7 @@
 			    const http = new XMLHttpRequest();			   				   
 
 	   			http.open('GET', 
-	   		   `http://127.0.0.1:5000/chatbot/question?code_user=${codeUser}&code_relation=${codeBefore}&input=${question}`, true);
+	   		   `[CHATBOT_API_URL]/chatbot/question?code_user=${codeUser}&code_relation=${codeBefore}&input=${question}`, true);
 	   			http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	   			http.onreadystatechange = function() {

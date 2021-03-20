@@ -18,7 +18,8 @@ const path = require('path')
   const bodyParser = require('body-parser');
   
   let db = null;
-  const url = process.env.MONGODB_URL || 'mongodb://localhost:27017';
+  const CHATBOT_API_URL = process.env.CHATBOT_API_URL || 'http://127.0.0.1:5000';
+  const url = process.env.MONGODB_URL || 'mongodb://localhost:27017';  
   const dbName = 'chatbotsdb';
   
   const jsonParser = bodyParser.json();
@@ -132,6 +133,7 @@ app.get('/index', urlencodedParser , function(req, res) {
             data = data.replace('[code_user]', code_user);
             data = data.replace('[code_user]', code_user);
             data = data.replace('[code_user]', code_user);
+            data = data.replace('[CHATBOT_API_URL]', CHATBOT_API_URL);            
             
 			res.send(data);	
 		}else {
@@ -193,6 +195,7 @@ app.get('/chatbot', urlencodedParser , function(req, res) {
 	const fs = require('fs');
     let data = fs.readFileSync('./chatbot.html', 'utf8');    
     data = data.replace('[code_user]', code_user);
+    data = data.replace('[CHATBOT_API_URL]', CHATBOT_API_URL);
 	res.send(data);
 
 });
