@@ -41,14 +41,14 @@ const path = require('path')
   
   //app.listen(3000);
   const PORTA = process.env.PORT || 3000;
-  const PORT  = process.env.PORT || 3000;
+  //const PORT  = process.env.PORT || 3000;
   
-  app.use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
+  //app.use(express.static(path.join(__dirname, 'public')))
+  //.set('views', path.join(__dirname, 'views'))
+  //.set('view engine', 'ejs')
+  //.get('/', (req, res) => res.render('pages/index'))
   
-  app.listen(PORTA, () => console.log(`Listening on ${ PORT }`));
+  app.listen(PORTA, () => console.log(`Listening on ${ PORTA }`));
 
   
   console.log('servidor rodando em localhost:3000');
