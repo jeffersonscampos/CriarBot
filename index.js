@@ -134,6 +134,7 @@ app.get('/index', urlencodedParser , function(req, res) {
             data = data.replace('[code_user]', code_user);
             data = data.replace('[code_user]', code_user);
             data = data.replace('[CHATBOT_API_URL]', CHATBOT_API_URL);            
+            data = data.replace('[CHATBOT_API_URL]', CHATBOT_API_URL);            
             
 			res.send(data);	
 		}else {
